@@ -42,6 +42,7 @@ useEffect(() => {
 They are all gone with `useEff`.
 
 Furthremore, `useEffect` doesn't work fine with new `using` syntax in TypeScript 5.2.
+
 `useEff` does.
 
 ```js
