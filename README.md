@@ -14,10 +14,9 @@ useEff(function*() {
     // `wait` is just for typing. you can just yield promises.
     yield* wait(new Promise(resolve => setTimeout(resolve, 1000)));
     
-    console.log('tick');
     setCount((x) => x + 1);
   }
-}, [])
+}, []);
 ```
 
 So, why is it better? Let's compare it to the code using `useEffect`.
@@ -28,12 +27,12 @@ useEffect(() => {
   void (async () => {
     while (!cancelled) {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('tick');
+
       setCount((x) => x + 1);
     }
   })();
   return () => { cancelled = true; };
-}, [])
+}, []);
 ```
 
 - Ugly IIFE to avoid being asynchronous callback
@@ -56,8 +55,14 @@ class Interval {
   }
 }
 
+const never = new Promise(() => {});
+
 useEff(function*() {
-  using interval = new Interval(() => { setCount((x) => x + 1); }, 1000)
+  using interval = new Interval(
+    () => { setCount((x) => x + 1); }, 
+    1000);
+
+  yield never;
 }, [])
 ```
 
