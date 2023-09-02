@@ -1,4 +1,4 @@
-import { type DependencyList, type EffectCallback, useEffect, useInsertionEffect, useLayoutEffect } from 'react'
+import { type DependencyList, useEffect, useInsertionEffect, useLayoutEffect } from 'react'
 
 type EffectHook = typeof useEffect
 
@@ -27,4 +27,3 @@ export function * wait<T> (promise: Promise<T>): Generator<Promise<T>, T> {
 export const useEff = upgradeHook(useEffect)
 export const useLayoutEff = upgradeHook(useLayoutEffect)
 export const useInsertionEff = upgradeHook(useInsertionEffect)
-
