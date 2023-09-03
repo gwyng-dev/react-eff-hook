@@ -11,8 +11,7 @@ npm i react-eff-hook
 ```js
 useEff(function*() {
   while (true) {
-    // `wait` is just for typing. you can just yield promises.
-    yield* wait(new Promise(resolve => setTimeout(resolve, 1000)));
+    yield delay(1000);
     
     setCount((x) => x + 1);
   }
@@ -26,7 +25,7 @@ useEffect(() => {
   let cancelled = false;
   void (async () => {
     while (!cancelled) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await delay(1000);
 
       setCount((x) => x + 1);
     }
@@ -39,6 +38,12 @@ useEffect(() => {
 - Manually stop the loop on cleanup
 
 They are all gone with `useEff`.
+
+If you wish to have the promise value's type inferred, use `wait` in conjunction with `yield*` like so:
+```js
+const data = yield* wait(fetch(url));
+```
+Then you will get `data` with its right type.
 
 Furthremore, `useEffect` doesn't work fine with new `using` syntax in TypeScript 5.2.
 
@@ -63,7 +68,7 @@ useEff(function*() {
     1000);
 
   yield never;
-}, [])
+}, []);
 ```
 
 Also, you can use `useLayoutEff` and `useInsertionEff` which are better versions of `useLayoutEffect` and `useInsertionEffect` respectively.
