@@ -11,27 +11,27 @@ npm i react-eff-hook
 ```js
 useEff(function*() {
   while (true) {
-    yield delay(1000);
+    yield delay(1000)
     
-    setCount((x) => x + 1);
+    setCount((x) => x + 1)
   }
-}, []);
+}, [])
 ```
 
 So, why is it better? Let's compare it to the code using `useEffect`.
 
 ```js
 useEffect(() => {
-  let cancelled = false;
+  let cancelled = false
   void (async () => {
     while (!cancelled) {
-      await delay(1000);
+      await delay(1000)
 
-      setCount((x) => x + 1);
+      setCount((x) => x + 1)
     }
-  })();
-  return () => { cancelled = true; };
-}, []);
+  })()
+  return () => { cancelled = true }
+}, [])
 ```
 
 - Ugly IIFE to avoid being asynchronous callback
@@ -41,7 +41,7 @@ They are all gone with `useEff`.
 
 If you wish to have the promise value's type inferred, use `wait` in conjunction with `yield*` like so:
 ```js
-const data = yield* wait(fetch(url));
+const data = yield* wait(fetch(url))
 ```
 Then you will get `data` with its right type.
 
@@ -52,23 +52,23 @@ Furthremore, `useEffect` doesn't work fine with new `using` syntax in TypeScript
 ```js
 class Interval {
   constructor(fn: () => void, interval: number) {
-    this.interval = setInterval(fn, interval);  
+    this.interval = setInterval(fn, interval); 
   }
   
   [Symbol.dispose]() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
   }
 }
 
-const never = new Promise(() => {});
+const never = new Promise(() => {})
 
 useEff(function*() {
   using interval = new Interval(
-    () => { setCount((x) => x + 1); }, 
-    1000);
+    () => { setCount((x) => x + 1) }, 
+    1000)
 
-  yield never;
-}, []);
+  yield never
+}, [])
 ```
 
 Also, you can use `useLayoutEff` and `useInsertionEff` which are better versions of `useLayoutEffect` and `useInsertionEffect` respectively.
@@ -80,6 +80,6 @@ Both `useEff` and `useEffect` trigger cleanup functions upon deps changes or com
 
 `useEffect` disregards errors thrown by promises within it, whereas the disposables within `useEff` invoke their dispose functions when any error occurs. 
 
-While this may be seen as a more desirable behavior, it may not be compatible with useEffect. 
+While this may be seen as a more desirable behavior, it may not be compatible with `useEffect`.
 
 However, I'm not entirely certain. Please let me know if you encounter any issues with this behavior.
