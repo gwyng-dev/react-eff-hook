@@ -1,6 +1,6 @@
 # reat-eff-hook
 
-react-eff-hook introduces `useEff`, an enhanced `useEffect` powered by Generator.
+**react-eff-hook** introduces `useEff`, an enhanced `useEffect` powered by Generator.
 
 ## Installation
 ```shell
@@ -60,14 +60,14 @@ class Interval {
   }
 }
 
-const never = new Promise(() => {})
+const forever = new Promise(() => {})
 
 useEff(function*() {
   using interval = new Interval(
     () => { setCount((x) => x + 1) }, 
     1000)
 
-  yield never
+  yield forever
 }, [])
 ```
 
