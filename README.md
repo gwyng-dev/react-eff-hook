@@ -8,6 +8,9 @@ npm i react-eff-hook
 ```
 
 ## Usage
+
+Let's say you want to make a counter that increments every second.
+
 ```js
 useEff(function*() {
   while (true) {
@@ -83,3 +86,9 @@ Both `useEff` and `useEffect` trigger cleanup functions upon deps changes or com
 While this may be seen as a more desirable behavior, it may not be compatible with `useEffect`.
 
 However, I'm not entirely certain. Please let me know if you encounter any issues with this behavior.
+
+## Further Reading
+
+[This RFC](https://github.com/reactjs/rfcs/pull/204) has proposed the same thing, but it's been inactive for a while.
+
+I hope the introduction of `using` syntax in TypeScript 5.2 will help this RFC to be accepted.
