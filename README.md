@@ -1,4 +1,4 @@
-# reat-eff-hook
+# react-eff-hook
 
 **react-eff-hook** introduces `useEff`, an enhanced `useEffect` powered by Generator.
 
